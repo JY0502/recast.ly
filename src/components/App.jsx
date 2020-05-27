@@ -3,6 +3,7 @@ import Search from './Search.js';
 import VideoList from './VideoList.js';
 import VideoPlayer from './VideoPlayer.js';
 import YOUTUBE_API_KEY from '../config/youtube.example.js';
+import searchYouTube from '../lib/searchYouTube.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -14,12 +15,12 @@ class App extends React.Component {
       currentVideo: exampleVideoData[0],
       search: ''
     };
-
     this.myChangeHandler = this.myChangeHandler.bind(this);
     this.handleClick = this.handleClick.bind(this);
+
   }
 
-  // handler events go here
+  // Function declarations
   handleClick(newVideo) {
     this.setState({
       currentVideo: newVideo
@@ -33,6 +34,24 @@ class App extends React.Component {
     });
     console.log(event);
   }
+
+
+  getYouTubeVideos(query) {
+    query = query || 'dogs';
+    var options = {
+      key: this.props.YOUTUBE_API_KEY,
+      query: query
+    };
+    this.props.searchYouTube(options, data => {
+      console.log("Data", data);
+    });
+  }
+
+  componentDidMount() {
+    this.getYouTubeVideos('munkbang');
+  }
+
+
 
   render () {
     return (

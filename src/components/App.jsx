@@ -2,6 +2,7 @@ import exampleVideoData from '../data/exampleVideoData.js';
 import Search from './Search.js';
 import VideoList from './VideoList.js';
 import VideoPlayer from './VideoPlayer.js';
+import YOUTUBE_API_KEY from '../config/youtube.example.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -10,16 +11,27 @@ class App extends React.Component {
     //`states` go here
     this.state = {
       videos: exampleVideoData,
-      currentVideo: exampleVideoData[0]
+      currentVideo: exampleVideoData[0],
+      search: ''
     };
+
+    this.myChangeHandler = this.myChangeHandler.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   // handler events go here
-  handleClickVideo(newVideo) {
+  handleClick(newVideo) {
     this.setState({
       currentVideo: newVideo
     });
-    console.log(newVideo + ' was clicked');
+    console.log(newVideo);
+  }
+
+  myChangeHandler(event) {
+    this.setState({
+      search: event.target.value
+    });
+    console.log(event);
   }
 
   render () {
@@ -27,7 +39,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><h5><em>search</em> view goes here</h5></div>
+            <Search myChangeHandler={this.myChangeHandler} search={this.state.search}/>
           </div>
         </nav>
         <div className="row">
@@ -37,7 +49,7 @@ class App extends React.Component {
           </div>
           <div className="col-md-5">
             {/* videos is the whole exampleVideoData array */}
-            <VideoList handleClickVideo={this.handleClickVideo.bind(this)} videos={this.state.videos} />
+            <VideoList handleClick={this.handleClick} videos={this.state.videos} />
           </div>
         </div>
       </div>

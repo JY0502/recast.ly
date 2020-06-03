@@ -4,8 +4,10 @@ import VideoList from './VideoList.js';
 import VideoPlayer from './VideoPlayer.js';
 import YOUTUBE_API_KEY from '../config/youtube.example.js';
 import searchYouTube from '../lib/searchYouTube.js';
+console.log('app', YOUTUBE_API_KEY);
 
 class App extends React.Component {
+
   constructor(props) {
     super(props);
 
@@ -17,9 +19,8 @@ class App extends React.Component {
     };
     this.myChangeHandler = this.myChangeHandler.bind(this);
     this.handleClick = this.handleClick.bind(this);
-
+    this.getYouTubeVideos = this.getYouTubeVideos.bind(this);
   }
-
   // Function declarations
   handleClick(newVideo) {
     this.setState({
@@ -31,19 +32,23 @@ class App extends React.Component {
   myChangeHandler(event) {
     this.setState({
       search: event.target.value
-    });
-    console.log(event);
+    }, this.getYouTubeVideos(this.state.search));
   }
 
 
   getYouTubeVideos(query) {
     query = query || 'dogs';
     var options = {
-      key: this.props.YOUTUBE_API_KEY,
+      key: YOUTUBE_API_KEY,
       query: query
     };
-    this.props.searchYouTube(options, data => {
-      console.log("Data", data);
+    this.props.searchYouTube(options, videos => {
+      console.log('videos are undefined', videos === undefined);
+      console.log('videos arr', videos);
+      this.setState({
+        videos: videos,
+        currentVideo: videos[0]
+      });
     });
   }
 

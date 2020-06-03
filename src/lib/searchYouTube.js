@@ -1,5 +1,7 @@
+
 var searchYouTube = (options, callback) => {
   // TODO
+  console.log(options);
   $.ajax({
     // This is the url you should use to communicate with the parse API server.
     url: 'https://www.googleapis.com/youtube/v3/search',
@@ -8,7 +10,7 @@ var searchYouTube = (options, callback) => {
       q: options.query || 'dogs',
       maxResults: options.max || 5,
       key: options.key,
-      type: video,
+      type: 'video',
       videoEmbeddable: true,
       part: 'snippet'
     },
@@ -18,7 +20,8 @@ var searchYouTube = (options, callback) => {
     },
     error: function (data) {
       // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
-      console.error('Error', data);
+      console.error('I hate an error');
+
     }
   });
 };
@@ -26,3 +29,4 @@ var searchYouTube = (options, callback) => {
 export default searchYouTube;
 
 //https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&key=[AIzaSyCK8EuXfAopRlZEACoZuv1DbpaATzorptc]
+

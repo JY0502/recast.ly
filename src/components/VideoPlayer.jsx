@@ -2,9 +2,6 @@ import exampleVideoData from '../data/exampleVideoData.js';
 
 // Change to {} braces since adding javascript
 var VideoPlayer = (props) => {
-  console.log('props', props);
-  console.log('video', props.video);
-  console.log('id', props.video.id);
   return (
     <div className="video-player">
       <div className="embed-responsive embed-responsive-16by9">

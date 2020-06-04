@@ -4,7 +4,6 @@ import VideoList from './VideoList.js';
 import VideoPlayer from './VideoPlayer.js';
 import YOUTUBE_API_KEY from '../config/youtube.example.js';
 import searchYouTube from '../lib/searchYouTube.js';
-console.log('app', YOUTUBE_API_KEY);
 
 class App extends React.Component {
 
@@ -42,12 +41,13 @@ class App extends React.Component {
       key: YOUTUBE_API_KEY,
       query: query
     };
-    this.props.searchYouTube(options, videos => {
-      console.log('videos are undefined', videos === undefined);
-      console.log('videos arr', videos);
+    this.props.searchYouTube(options, (videos) => {
+      console.log('videos',typeof videos);
+      console.log('current video',typeof videos[0]);
+      console.log(videos);
       this.setState({
-        videos: videos,
-        currentVideo: videos[0]
+      videos: videos,
+      currentVideo: videos[0]
       });
     });
   }
@@ -55,7 +55,6 @@ class App extends React.Component {
   componentDidMount() {
     this.getYouTubeVideos('munkbang');
   }
-
 
 
   render () {
